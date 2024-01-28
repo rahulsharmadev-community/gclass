@@ -1,0 +1,24 @@
+targets:
+  $default:
+    builders:
+      gbuilder:
+        enabled: true
+        generate_for:
+          exclude:
+            - test
+            - example
+          include:
+            - test/integration/*
+            - test/integration/**/*
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+            - "type=lint"
+
+builders:
+  gbuilder:
+    import: "package:gclass/gbuilder.dart"
+    builder_factories: ["gbuilder"]
+    build_extensions: { ".dart": [".g.dart"] }
+    auto_apply: dependents
+    build_to: source
